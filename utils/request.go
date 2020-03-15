@@ -15,7 +15,7 @@ const (
 
 type Request struct {
 	Client *http.Request
-	Query url.Values
+	Query  url.Values
 }
 
 func NewRequest(uri, path string) *Request {
@@ -25,11 +25,12 @@ func NewRequest(uri, path string) *Request {
 	}
 	return &Request{
 		Client: req,
+		Query:  req.URL.Query(),
 	}
 }
 
 func (req *Request) AddQuery(key, value string) {
-	req.Query = req.Client.URL.Query()
+	//req.Query = req.Client.URL.Query()
 	req.Query.Set(key, value)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
