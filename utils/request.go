@@ -36,6 +36,12 @@ func (req *Request) AddQuery(key, value string) {
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
 
+func (req *Request) DelQuery(key string) {
+	req.Query = req.Client.URL.Query()
+	req.Query.Del(key)
+	req.Client.URL.RawQuery = req.Query.Encode()
+}
+
 func (req Request) DownloadImages(folder string) {
 	var wg sync.WaitGroup
 
@@ -50,11 +56,16 @@ func (req Request) DownloadImages(folder string) {
 	totalPage := math.Ceil(float64(total) / float64(MAX_PER_PAGE))
 	log.Println("Total pages", total, totalPage)
 
-	remain := total - (total/MAX_PER_PAGE) * MAX_PER_PAGE
-	log.Println("Remain num", remain)
+	remain := total - (total/MAX_PER_PAGE)*MAX_PER_PAGE
+
 	for i := 0; i < int(totalPage); i++ {
 		wg.Add(1)
 		go func(i int) {
+			if (i + 1) == int(totalPage) {
+				req.AddQuery("num", strconv.Itoa(remain))
+			} else {
+				req.AddQuery("num", strconv.Itoa(MAX_PER_PAGE))
+			}
 			req.AddQuery("start", strconv.Itoa(i*MAX_PER_PAGE+1))
 			log.Println("First request", i, req.Client.URL.Query())
 
