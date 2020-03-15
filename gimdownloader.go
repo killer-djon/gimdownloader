@@ -88,8 +88,8 @@ func main() {
 	request.AddQuery("imgColorType", imgColorType)
 	request.AddQuery("fileType", imgType)
 	request.AddQuery("start", "1")
-	
-	log.Println(request.Client.URL.Query().Encode())
-	request.DownloadImages("./images")
+
+	//log.Println(request.Client.URL.Query().Encode())
+	request.DownloadImages("./images/sber")
 }
 
