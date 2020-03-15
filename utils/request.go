@@ -69,16 +69,14 @@ func (req Request) DownloadImages(folder string) {
 	for i := 0; i < int(totalPage); i++ {
 		wg.Add(1)
 		go func(i int) {
+			count := MAX_PER_PAGE
 			if (i + 1) == int(totalPage) {
 				if remain > 0 {
-					req.AddQuery("num", strconv.Itoa(remain))
-				}else{
-					req.AddQuery("num", strconv.Itoa(MAX_PER_PAGE))
+					count = remain
 				}
-
-			} else {
-				req.AddQuery("num", strconv.Itoa(MAX_PER_PAGE))
 			}
+
+			req.AddQuery("num", strconv.Itoa(count))
 			req.AddQuery("start", strconv.Itoa(i*MAX_PER_PAGE+1))
 
 			req.getPage(i+1, folder, req.Client.URL.Query())
