@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"imagedownload/gimdownloader/utils"
 	"log"
 	"strconv"
@@ -35,16 +36,25 @@ func init() {
 	flag.StringVar(&configFile, "configFile", "", "If is set then get config params, otherwise get by args")
 	flag.StringVar(&key, "key", "", "Key API from google console")
 	flag.StringVar(&cx, "cx", "", "Key for Custom search API")
-	flag.IntVar(&num, "num", 0, "How match images went to get (default: 10)")
+	flag.IntVar(&num, "num", 10, "How match images went to get")
 	flag.StringVar(&imgSize, "imgSize", "", "Image size for download, like medium,large,small ...")
 	flag.StringVar(&imgColorType, "imgColorType", IMAGE_COLOR_TYPE, "Image color type like (color, gray, mono)")
 	flag.StringVar(&query, "query", "", "Query string for search images by this query")
-	flag.StringVar(&imgType, "imgType", IMAGE_TYPE, "Image type for download (default: jpeg)")
+	flag.StringVar(&imgType, "imgType", IMAGE_TYPE, "Image type for download")
 	flag.StringVar(&tag, "tag", "", "Tag name for named image for download")
-
 }
 
 func main() {
+
+	flag.Usage = func() {
+		fmt.Printf("Google image downloader by Leshanu Evgeniy\n")
+		fmt.Println("Usage:")
+		fmt.Printf("	gimdownloader [options] \n")
+		fmt.Println("Options:")
+		flag.PrintDefaults()
+
+	}
+
 	config := utils.GetConfig("./config.json")
 	flag.Parse()
 	url = DEFUALT_URL
@@ -62,6 +72,7 @@ func main() {
 
 	if tag == "" {
 		log.Println("You must type tag name for images")
+		flag.Usage()
 		return
 	}
 
@@ -75,11 +86,13 @@ func main() {
 
 	if key == "" {
 		log.Println("Your key flag is empty you must specified them")
+		flag.Usage()
 		return
 	}
 
 	if query == "" {
 		log.Println("You must set query string for search images")
+		flag.Usage()
 		return
 	}
 	var request = utils.NewRequest(url, path, tag)
