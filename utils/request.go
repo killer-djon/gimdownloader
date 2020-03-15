@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log"
+	"math"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -25,12 +26,12 @@ func NewRequest(uri, path string) *Request {
 	}
 	return &Request{
 		Client: req,
-		Query:  req.URL.Query(),
+		Query:  nil,
 	}
 }
 
 func (req *Request) AddQuery(key, value string) {
-	//req.Query = req.Client.URL.Query()
+	req.Query = req.Client.URL.Query()
 	req.Query.Set(key, value)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
@@ -46,12 +47,15 @@ func (req Request) DownloadImages(folder string) {
 
 	MakeFolder(folder)
 
-	for i := 0; i < total/MAX_PER_PAGE; i++ {
+	totalPage := math.Ceil(float64(total) / float64(MAX_PER_PAGE))
+	log.Println("Total pages", total, totalPage)
+
+	remain := total - (total/MAX_PER_PAGE) * MAX_PER_PAGE
+	log.Println("Remain num", remain)
+	for i := 0; i < int(totalPage); i++ {
 		wg.Add(1)
 		go func(i int) {
-			req.AddQuery("start", strconv.Itoa(i))
-			req.AddQuery("num", strconv.Itoa(MAX_PER_PAGE))
-
+			req.AddQuery("start", strconv.Itoa(i*MAX_PER_PAGE+1))
 			log.Println("First request", i, req.Client.URL.Query())
 
 			wg.Done()
