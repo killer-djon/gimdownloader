@@ -7,7 +7,6 @@ import (
 	"strconv"
 )
 
-
 const (
 	IMAGES_FOLDER    = "images"
 	IMAGE_TYPE       = "jpeg"
@@ -26,9 +25,9 @@ var (
 	imgColorType string
 	query        string
 	imgType      string
-	searchType   string
 	url          string
 	path         string
+	tag          string
 )
 
 func init() {
@@ -41,6 +40,7 @@ func init() {
 	flag.StringVar(&imgColorType, "imgColorType", IMAGE_COLOR_TYPE, "Image color type like (color, gray, mono)")
 	flag.StringVar(&query, "query", "", "Query string for search images by this query")
 	flag.StringVar(&imgType, "imgType", IMAGE_TYPE, "Image type for download (default: jpeg)")
+	flag.StringVar(&tag, "tag", "", "Tag name for named image for download")
 
 }
 
@@ -60,6 +60,11 @@ func main() {
 		path = config.EndPoint
 	}
 
+	if tag == "" {
+		log.Println("You must type tag name for images")
+		return
+	}
+
 	if num > 0 {
 		count = num
 	} else {
@@ -77,7 +82,7 @@ func main() {
 		log.Println("You must set query string for search images")
 		return
 	}
-	var request = utils.NewRequest(url, path)
+	var request = utils.NewRequest(url, path, tag)
 
 	request.AddQuery("key", key)
 	request.AddQuery("cx", cx)
@@ -90,6 +95,5 @@ func main() {
 	request.AddQuery("start", "1")
 
 	//log.Println(request.Client.URL.Query().Encode())
-	request.DownloadImages("./images/sber")
+	request.DownloadImages(folder)
 }
-
