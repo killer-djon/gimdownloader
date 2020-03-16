@@ -8,6 +8,7 @@ import (
 	"strconv"
 )
 
+// Main constants for run gimdownloader util
 const (
 	IMAGES_FOLDER    = "images"
 	IMAGE_TYPE       = "jpeg"

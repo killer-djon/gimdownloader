@@ -17,7 +17,7 @@ const (
 	MAX_PAGES    = 10
 )
 
-// Main request struct
+// Request Main request struct
 // which have exported methods
 type Request struct {
 	Client  *http.Request
@@ -27,7 +27,7 @@ type Request struct {
 	TagName string
 }
 
-// Create blank struct Request
+// NewRequest Create blank struct Request
 // for generate initial query params
 func NewRequest(uri, path, tag string) *Request {
 	req, err := http.NewRequest("GET", "", nil)
@@ -43,31 +43,31 @@ func NewRequest(uri, path, tag string) *Request {
 	}
 }
 
-// Add/Set query item to slice
+// AddQuery Add/Set query item to slice
 func (req *Request) AddQuery(key, value string) {
 	req.Query = req.Client.URL.Query()
 	req.Query.Set(key, value)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
 
-// Remove query item from slice
+// DelQuery Remove query item from slice
 func (req *Request) DelQuery(key string) {
 	req.Query = req.Client.URL.Query()
 	req.Query.Del(key)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
 
-// Get all query values
+// GetQueries Get all query values
 func (req Request) GetQueries() url.Values {
 	return req.Query
 }
 
-// Get query item by key from slice queries
+// GetQuery Get query item by key from slice queries
 func (req Request) GetQuery(key string) string {
 	return req.Query.Get(key)
 }
 
-// Start download all images by config params
+// DownloadImages Start download all images by config params
 func (req Request) DownloadImages(folder string) {
 	total, _ := strconv.Atoi(req.Client.URL.Query().Get("num"))
 
@@ -105,7 +105,7 @@ func (req Request) DownloadImages(folder string) {
 	wg.Wait()
 }
 
-// Private method for get page with images
+// getPage Private method for get page with images
 func (req *Request) getPage(grNum int, folder string, values url.Values) {
 
 	uri, _ := url.ParseRequestURI(req.Uri + req.Path)

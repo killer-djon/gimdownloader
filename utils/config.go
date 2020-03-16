@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// Root config params
+// Config Root config params
 type Config struct {
 	Key         string      `json:"api_key"`
 	Cx          string      `json:"api_cx"`
@@ -16,7 +16,7 @@ type Config struct {
 	QueryConfig QueryConfig `json:"query_config"`
 }
 
-// Config params for query strings
+// QueryConfig params for query strings
 type QueryConfig struct {
 	FileType     string `json:"file_type"`
 	ImgColorType string `json:"img_color_type"`
@@ -25,7 +25,7 @@ type QueryConfig struct {
 	SearchType   string `json:"search_type"`
 }
 
-// get config file
+// GetConfig get config file
 func GetConfig(path string) *Config {
 	jsonFile, err := os.Open(path)
 	// if we os.Open returns an error then handle it
