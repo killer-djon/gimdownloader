@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"imagedownload/gimdownloader/utils"
+	"github.com/killer-djon/gimdownloader/utils"
 	"log"
 	"strconv"
 )
