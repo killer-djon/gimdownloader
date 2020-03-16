@@ -7,6 +7,7 @@ go:
 before_install:
   - go get -t -v ./... && go build -v ./...
   - bash <(touch config.json)
+  - bash <(echo '{}' > config.json)
 
 script:
   - go test ./...
