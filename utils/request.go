@@ -10,11 +10,15 @@ import (
 	"sync"
 )
 
+// Defaults constant variables
+// for pagination when download images
 const (
 	MAX_PER_PAGE = 10
 	MAX_PAGES    = 10
 )
 
+// Main request struct
+// which have exported methods
 type Request struct {
 	Client  *http.Request
 	Query   url.Values
@@ -23,6 +27,8 @@ type Request struct {
 	TagName string
 }
 
+// Create blank struct Request
+// for generate initial query params
 func NewRequest(uri, path, tag string) *Request {
 	req, err := http.NewRequest("GET", "", nil)
 	if err != nil {
@@ -61,6 +67,7 @@ func (req Request) GetQuery(key string) string {
 	return req.Query.Get(key)
 }
 
+// Start download all images by config params
 func (req Request) DownloadImages(folder string) {
 	total, _ := strconv.Atoi(req.Client.URL.Query().Get("num"))
 
@@ -98,6 +105,7 @@ func (req Request) DownloadImages(folder string) {
 	wg.Wait()
 }
 
+// Private method for get page with images
 func (req *Request) getPage(grNum int, folder string, values url.Values) {
 
 	uri, _ := url.ParseRequestURI(req.Uri + req.Path)

@@ -7,22 +7,28 @@ import (
 	"net/http"
 )
 
+// Root struct for response
+// by download
 type Response struct {
 	StatusCode int
 	Status     string
 	Body       *Images
 }
 
+// Images struct with slice
+// of downloaded images list
 type Images struct {
 	Error *Error
 	Items []*Image `json:"items"`
 }
 
+// Error struct
 type Error struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
+// Simple image struct
 type Image struct {
 	Title      string     `json:"title"`
 	Link       string     `json:"link"`
@@ -31,12 +37,15 @@ type Image struct {
 	Meta       *ImageMeta `json:"image"`
 }
 
+// Image metadata for all
+// images in list
 type ImageMeta struct {
 	Height int `json:"height"`
 	Width  int `json:"width"`
 	Size   int `json:"byteSize"`
 }
 
+// Create new struct Response
 func NewResponse(resp *http.Response) (*Response, error) {
 	bodyByte, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
