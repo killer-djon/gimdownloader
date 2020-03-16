@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// Root config params
 type Config struct {
 	Key         string      `json:"api_key"`
 	Cx          string      `json:"api_cx"`
@@ -15,6 +16,7 @@ type Config struct {
 	QueryConfig QueryConfig `json:"query_config"`
 }
 
+// Config params for query strings
 type QueryConfig struct {
 	FileType     string `json:"file_type"`
 	ImgColorType string `json:"img_color_type"`
