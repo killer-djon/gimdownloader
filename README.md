@@ -3,7 +3,7 @@ This util is helper for download many images from custom google search service a
 
 [![License MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://en.wikipedia.org/wiki/MIT_License)
 [![Build Status](https://travis-ci.com/killer-djon/gimdownloader.svg?branch=master)](https://travis-ci.com/killer-djon/gimdownloader)
-
+[![Go Report Card](https://goreportcard.com/badge/github.com/killer-djon/gimdownloader)](https://goreportcard.com/report/github.com/killer-djon/gimdownloader)
 
 ### Import to self package
 You can use this library in your project
