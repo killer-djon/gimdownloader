@@ -41,6 +41,12 @@ On the first step you should get and install package
 ```
 go get -u github.com/killer-djon/gimdownloader
 ```
+#### Test
+Run test for package
+```
+cd $GOPATH/src/github.com/killer-djon/gimdownloader
+go test ./...
+```
 
 #### Usage
 ##### Get help
