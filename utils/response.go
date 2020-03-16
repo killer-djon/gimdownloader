@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// Root struct for response
+// Response Root struct for response
 // by download
 type Response struct {
 	StatusCode int
@@ -28,7 +28,7 @@ type Error struct {
 	Message string `json:"message"`
 }
 
-// Simple image struct
+// Image Simple image struct
 type Image struct {
 	Title      string     `json:"title"`
 	Link       string     `json:"link"`
@@ -37,7 +37,7 @@ type Image struct {
 	Meta       *ImageMeta `json:"image"`
 }
 
-// Image metadata for all
+// ImageMeta Image metadata for all
 // images in list
 type ImageMeta struct {
 	Height int `json:"height"`
@@ -45,7 +45,7 @@ type ImageMeta struct {
 	Size   int `json:"byteSize"`
 }
 
-// Create new struct Response
+// NewResponse Create new struct Response
 func NewResponse(resp *http.Response) (*Response, error) {
 	bodyByte, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -71,18 +71,18 @@ func NewResponse(resp *http.Response) (*Response, error) {
 	}, nil
 }
 
-// Helper methods for get items for response
+// GetImages Helper methods for get items for response
 // Get images list
 func (response Response) GetImages() []*Image {
 	return response.Body.Items
 }
 
-// Get status code
+// GetStatusCode Get status code
 func (response Response) GetStatusCode() int {
 	return response.StatusCode
 }
 
-// Get status
+// GetStatus Get status text
 func (response Response) GetStatus() string {
 	return response.Status
 }

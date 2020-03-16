@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// MakeFolder create typed folder
 func MakeFolder(folder string) {
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
 		err := os.MkdirAll(folder, 0775)
@@ -16,6 +17,7 @@ func MakeFolder(folder string) {
 	}
 }
 
+// SaveImage try to save in folder downloaded image
 func SaveImage(filepath string, resp *http.Response) (int64, error) {
 	file, err := os.Create(filepath)
 	if err != nil {
