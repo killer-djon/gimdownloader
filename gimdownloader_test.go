@@ -8,7 +8,7 @@ import (
 func TestGetConfig(t *testing.T) {
 	config := utils.GetConfig("config.json")
 	if config == nil {
-		t.Errorf("Config file must be exists in dir: %v", config)
+		t.Error("Config file must be exists in folder")
 	}
 
 	if config.Key == "" {

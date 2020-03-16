@@ -6,9 +6,12 @@ go:
 
 before_install:
   - go get -t -v ./... && go build -v ./...
+  - bash <(touch config.json)
+  - bash <(echo '{"key":"some_key","cx":"some_api_cx"}' > config.json)
 
 script:
   - go test ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - bash <(rm -f config.json)
