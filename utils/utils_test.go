@@ -24,7 +24,7 @@ func TestSaveImage(t *testing.T) {
 		t.Errorf("Error when download remote image - %v\n", err)
 	}
 
-	size, err := SaveImage(folder + "/" + fileName, response)
+	size, err := SaveImage(folder+"/"+fileName, response)
 	if err != nil {
 		t.Errorf("Cant save image to folder - %v\n", err)
 	}
