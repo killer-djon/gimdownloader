@@ -1,13 +1,10 @@
 # Google image downloader util
-==============================
-
 This util is helper for download many images from custom google search service and put them to specified folder
 
 [![License MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 
 ### Import to self package
-==========================
 You can use this library in your project
 ```go
 package main
@@ -38,7 +35,6 @@ request.DownloadImages(folder)
 ```
 
 ### Build package
-=======================
 On the first step you should get and install package
 #### Install
 ```
