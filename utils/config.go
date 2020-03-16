@@ -15,7 +15,6 @@ type Config struct {
 	QueryConfig QueryConfig `json:"query_config"`
 }
 
-
 type QueryConfig struct {
 	FileType     string `json:"file_type"`
 	ImgColorType string `json:"img_color_type"`

@@ -19,7 +19,7 @@ type Images struct {
 }
 
 type Error struct {
-	Code int `json:"code"`
+	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
@@ -77,4 +77,3 @@ func (response Response) GetStatusCode() int {
 func (response Response) GetStatus() string {
 	return response.Status
 }
-
