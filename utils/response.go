@@ -55,7 +55,7 @@ func NewResponse(resp *http.Response) (*Response, error) {
 	var images = &Images{}
 	err = json.Unmarshal(bodyByte, images)
 	if err != nil {
-		log.Printf("Error when decode json reponse images array: %v", err)
+		log.Printf("Error when decode json response images array: %v", err)
 		return nil, err
 	}
 

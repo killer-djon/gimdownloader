@@ -13,7 +13,7 @@ const (
 	IMAGES_FOLDER    = "images"
 	IMAGE_TYPE       = "jpeg"
 	IMAGE_COLOR_TYPE = "color"
-	DEFUALT_URL      = "https://www.googleapis.com"
+	DEFAULT_URL      = "https://www.googleapis.com"
 	DEFAULT_PATH     = "/customsearch/v1"
 )
 
@@ -59,7 +59,7 @@ func main() {
 	}
 
 	config := utils.GetConfig("./config.json")
-	url = DEFUALT_URL
+	url = DEFAULT_URL
 	path = DEFAULT_PATH
 	if config != nil {
 		key = config.Key
