@@ -36,7 +36,7 @@ func init() {
 	flag.StringVar(&configFile, "configFile", "", "If is set then get config params, otherwise get by args")
 	flag.StringVar(&key, "key", "", "Key API from google console")
 	flag.StringVar(&cx, "cx", "", "Key for Custom search API")
-	flag.IntVar(&num, "num", 10, "How match images went to get")
+	flag.IntVar(&count, "num", 10, "How match images went to get")
 	flag.StringVar(&imgSize, "imgSize", "", "Image size for download, like medium,large,small ...")
 	flag.StringVar(&imgColorType, "imgColorType", IMAGE_COLOR_TYPE, "Image color type like (color, gray, mono)")
 	flag.StringVar(&query, "query", "", "Query string for search images by this query")
@@ -45,10 +45,12 @@ func init() {
 }
 
 func main() {
-
+	flag.Parse()
 	flag.Usage = func() {
-		fmt.Printf("Google image downloader by Leshanu Evgeniy\n")
-		fmt.Println("Usage:")
+		fmt.Printf("\nGoogle image downloader by Leshanu Evgeniy\n")
+		fmt.Printf("You can download multiple images from google\n")
+		fmt.Printf("just create you custom search application in google cloud console\n")
+		fmt.Println("\nUsage:")
 		fmt.Printf("	gimdownloader [options] \n")
 		fmt.Println("Options:")
 		flag.PrintDefaults()
@@ -56,13 +58,12 @@ func main() {
 	}
 
 	config := utils.GetConfig("./config.json")
-	flag.Parse()
 	url = DEFUALT_URL
 	path = DEFAULT_PATH
 	if config != nil {
 		key = config.Key
 		cx = config.Cx
-		count = config.QueryConfig.Num
+		num = config.QueryConfig.Num
 		imgSize = config.QueryConfig.ImgSize
 		imgColorType = config.QueryConfig.ImgColorType
 		imgType = config.QueryConfig.FileType
@@ -70,18 +71,14 @@ func main() {
 		path = config.EndPoint
 	}
 
+	if count > 0 {
+		num = count
+	}
+
 	if tag == "" {
 		log.Println("You must type tag name for images")
 		flag.Usage()
 		return
-	}
-
-	if num > 0 {
-		count = num
-	} else {
-		if count > 0 {
-			count = count
-		}
 	}
 
 	if key == "" {
@@ -100,13 +97,12 @@ func main() {
 	request.AddQuery("key", key)
 	request.AddQuery("cx", cx)
 	request.AddQuery("q", query)
-	request.AddQuery("num", strconv.Itoa(count))
+	request.AddQuery("num", strconv.Itoa(num))
 	request.AddQuery("searchType", "image")
 	request.AddQuery("imgSize", imgSize)
 	request.AddQuery("imgColorType", imgColorType)
 	request.AddQuery("fileType", imgType)
 	request.AddQuery("start", "1")
 
-	//log.Println(request.Client.URL.Query().Encode())
 	request.DownloadImages(folder)
 }

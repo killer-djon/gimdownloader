@@ -37,21 +37,31 @@ func NewRequest(uri, path, tag string) *Request {
 	}
 }
 
+// Add/Set query item to slice
 func (req *Request) AddQuery(key, value string) {
 	req.Query = req.Client.URL.Query()
 	req.Query.Set(key, value)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
 
+// Remove query item from slice
 func (req *Request) DelQuery(key string) {
 	req.Query = req.Client.URL.Query()
 	req.Query.Del(key)
 	req.Client.URL.RawQuery = req.Query.Encode()
 }
 
-func (req Request) DownloadImages(folder string) {
-	var wg sync.WaitGroup
+// Get all query values
+func (req Request) GetQueries() url.Values {
+	return req.Query
+}
 
+// Get query item by key from slice queries
+func (req Request) GetQuery(key string) string {
+	return req.Query.Get(key)
+}
+
+func (req Request) DownloadImages(folder string) {
 	total, _ := strconv.Atoi(req.Client.URL.Query().Get("num"))
 
 	if total > MAX_PAGES*MAX_PER_PAGE {
@@ -66,6 +76,7 @@ func (req Request) DownloadImages(folder string) {
 
 	remain := total - (total/MAX_PER_PAGE)*MAX_PER_PAGE
 
+	var wg sync.WaitGroup
 	for i := 0; i < int(totalPage); i++ {
 		wg.Add(1)
 		go func(i int) {
