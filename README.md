@@ -1,11 +1,13 @@
 # Google image downloader util
+==============================
 
 This util is helper for download many images from custom google search service and put them to specified folder
 
 [![License MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 
-### Main usage
+### Import to self package
+==========================
 You can use this library in your project
 ```go
 package main
@@ -33,4 +35,48 @@ request.AddQuery("fileType", imgType)
 request.AddQuery("start", "1")
 
 request.DownloadImages(folder)
+```
+
+### Build package
+=======================
+On the first step you should get and install package
+#### Install
+```
+go get -u github.com/killer-djon/gimdownloader
+```
+
+#### Usage
+##### Get help
+```
+# Type in terminal
+$GOPATH/bin/gimdownloader
+# and you can see help
+
+Google image downloader by Leshanu Evgeniy
+You can download multiple images from google
+just create you custom search application in google cloud console
+
+Usage:
+	gimdownloader [options] 
+Options:
+  -configFile string
+    	If is set then get config params, otherwise get by args
+  -cx string
+    	Key for Custom search API
+  -folder string
+    	Folder where images will be download (default "images")
+  -imgColorType string
+    	Image color type like (color, gray, mono) (default "color")
+  -imgSize string
+    	Image size for download, like medium,large,small ...
+  -imgType string
+    	Image type for download (default "jpeg")
+  -key string
+    	Key API from google console
+  -num int
+    	How match images went to get (default 10)
+  -query string
+    	Query string for search images by this query
+  -tag string
+    	Tag name for named image for download
 ```
