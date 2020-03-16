@@ -7,7 +7,6 @@ go:
 before_install:
   - go get -t -v ./... && go build -v ./...
   - bash <(touch config.json)
-  - bash <(echo '{"key":"some_key","cx":"some_api_cx"}' > config.json)
 
 script:
   - go test ./...

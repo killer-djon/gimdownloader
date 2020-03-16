@@ -10,14 +10,6 @@ func TestGetConfig(t *testing.T) {
 	if config == nil {
 		t.Error("Config file must be exists in folder")
 	}
-
-	if config.Key == "" {
-		t.Error("Key of the custom search service is required in config file")
-	}
-
-	if config.Cx == "" {
-		t.Error("Cx argument of custom search service is required in config file")
-	}
 }
 
 func TestSetRequestParams(t *testing.T) {
