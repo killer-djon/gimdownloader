@@ -27,5 +27,9 @@ func SaveImage(filepath string, resp *http.Response) (int64, error) {
 
 	// Write the body to file
 	size, err := io.Copy(file, resp.Body)
+	if err != nil {
+		log.Fatalf("Cant save downloaded image in folder: %v\n", err)
+		return 0, err
+	}
 	return size, nil
 }
